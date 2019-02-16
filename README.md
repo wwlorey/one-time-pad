@@ -32,6 +32,10 @@ The encrypted message may look like ASCII junk, so don't worry if it does!
 Input parameters could be named any valid filename, and the general format is: 
 
     `$ ./bin_otp.py <keyfile> <keynum> <inputfile> <outputfile>`
+    
+    or 
+
+    `$ python3 bin_otp.py <keyfile> <keynum> <inputfile> <outputfile>`
 
 ## What to submit
 * You could have testing files like messages and keys in the repository, but just the two python scripts are necessary.
