@@ -3,7 +3,8 @@
 Binary XOR operations are all over modern crypto, and this is a fun version of "perfect" crypto using this method.
 You are making a binary one-time-pad program, which has two parts:
 
-1. A python3 script named and executed as follows `$ python3 bin_otp_key_gen.py keyfile.sec` should output a utf-8 unix delimited text file of 500 numbered OTP keys, 1-per-line, with each key 2048 characters (bits) long. 
+1. A python3 script named and executed as follows `$ python3 bin_otp_key_gen.py keyfile.sec` should output a utf-8 unix delimited text file of 500 numbered OTP keys, 1-per-line, with each key 2048 characters (bits) long.
+Make sure to use a cryptographically strong random key generation method (e.g., secrets, urandom, /dev/random)
 Each line should have a 3-digit number with leading 0s, starting with 001, followed by a single space, and a 2048bit key.
 For example:
 
