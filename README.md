@@ -2,7 +2,7 @@
 
 You are making a binary one-time-pad program, which has two parts:
 
-1. A python3 script named and executed as follows `$ ./bin_otp_key_gen.py keyfile.sec` should output a utf-8 unix delimited text file of 500 numbered OTP keys, 1-per-line, with each key 2048 characters (bits) long. 
+1. A python3 script named and executed as follows `$ python3 bin_otp_key_gen.py keyfile.sec` should output a utf-8 unix delimited text file of 500 numbered OTP keys, 1-per-line, with each key 2048 characters (bits) long. 
 Each line should have a 3-digit number with leading 0s, starting with 001, followed by a single space, and a 2048bit key.
 For example:
 
@@ -20,6 +20,10 @@ For example:
     The general format is:
 
     `$ ./bin_otp_key_gen.py <keyfiletowrite>`
+
+    or
+
+    `$ python3 bin_otp_key_gen.py <keyfiletowrite>`
 
 2. A python3 script named and executed (for example) as follows `$ ./bin_otp.py keyfile.sec 3 inputfile.txt outputfile.txt` should turn the text in inputfile.txt into a bitstring, XOR it with the 3rd key in the keyfile.sec, translate back to readable utf-8 text, and write the converted data to outputfile.txt. 
 Thus, the script should work symmetrically, encrypting or decrypting.
