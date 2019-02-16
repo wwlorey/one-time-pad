@@ -1,5 +1,6 @@
 # Programming assignment 2 (pa02) -- Binary One Time Pad
 
+Binary XOR operations are all over modern crypto, and this is a fun version of "perfect" crypto using this method.
 You are making a binary one-time-pad program, which has two parts:
 
 1. A python3 script named and executed as follows `$ python3 bin_otp_key_gen.py keyfile.sec` should output a utf-8 unix delimited text file of 500 numbered OTP keys, 1-per-line, with each key 2048 characters (bits) long. 
