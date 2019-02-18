@@ -55,3 +55,5 @@ if __name__ == '__main__':
             # Prevent a trailing new line in the file
             if key_count < NUM_OTP_KEYS - 1:
                 output_file.write('\n')
+        
+        print('Key written to', output_file_name)

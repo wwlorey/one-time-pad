@@ -7,7 +7,7 @@ import sys
 
 # Constants
 DEFAULT_KEY_FILE_NAME = 'keyfile.sec'
-DEFAULT_KEY_INDEX = 0
+DEFAULT_KEY_ID = 1
 DEFAULT_INPUT_FILE_NAME = 'input.txt'
 DEFAULT_OUTPUT_FILE_NAME = 'output.txt'
 
@@ -42,9 +42,9 @@ def encrypt_message(key, message):
 
 if __name__ == '__main__':
     # Ensure the expected number of command line arguments is provided
-    if len(sys.argv) == 4:
+    if len(sys.argv) == 5:
         key_file_name = sys.argv[1]
-        key_index = int(sys.argv[2]) - 1
+        key_id = int(sys.argv[2])
         input_file_name = sys.argv[3]
         output_file_name = sys.argv[4]
 
@@ -52,10 +52,13 @@ if __name__ == '__main__':
         # Incorrect number of command line arguments
         # Use defaults
         key_file_name = DEFAULT_KEY_FILE_NAME
-        key_index = DEFAULT_KEY_INDEX
+        key_id = DEFAULT_KEY_ID
         input_file_name = DEFAULT_INPUT_FILE_NAME
-        output_file_name = DEFAULT_OUTPUT_FILE_NAME        
+        output_file_name = DEFAULT_OUTPUT_FILE_NAME
+        print('Using default values.')
         
+    key_index = key_id - 1        
+
     with open(key_file_name, 'r') as key_file:
         key = key_file.read().split('\n')[key_index].split()[1]
         
@@ -66,4 +69,5 @@ if __name__ == '__main__':
 
     with open(output_file_name, 'w') as output_file:
         output_file.write(encrypted_message)
+        print('Encrypted/Decrypted message written to', output_file_name)
     
