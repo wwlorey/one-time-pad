@@ -13,7 +13,6 @@ OTP_BIT_LEN = 2048
 OTP_BYTE_LEN = OTP_BIT_LEN // 8
 
 
-
 if __name__ == '__main__':
     # Ensure the expected number of command line arguments is provided
     if len(sys.argv) == 2:
@@ -21,10 +20,24 @@ if __name__ == '__main__':
 
     else:
         # Incorrect number of command line arguments
-        # Use default file names
+        # Use defaults
         output_file_name = DEFAULT_OUTPUT_FILE_NAME        
+    
+    # Determine zero padding amount for key ids
+    key_id_len = 0        
+    num_otp_keys_copy = NUM_OTP_KEYS
+    while num_otp_keys_copy:
+        num_otp_keys_copy = num_otp_keys_copy // 10
+        key_id_len += 1
+    
+    format_str = "{:0%id}" % key_id_len
     
     # Generate & write OTP keys
     with open(output_file_name, 'w') as output_file:
-        for _ in range(NUM_OTP_KEYS):
-            output_file.write(str(urandom(OTP_BYTE_LEN)) + '\n')
+        for key_count in range(NUM_OTP_KEYS):
+            key_id = format_str.format(key_count)
+            key = str(urandom(OTP_BYTE_LEN))
+            output_file.write(key_id + ' ' + key)
+            
+            if key_count < NUM_OTP_KEYS - 1:
+                output_file.write('\n')
