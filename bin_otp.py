@@ -13,15 +13,31 @@ DEFAULT_OUTPUT_FILE_NAME = 'output.txt'
 
 
 def encrypt_message(key, message):
-    """Returns an XOR encrypted version of message."""
-    encrypted_message = b''
-    message = message.encode()
-    key = key.encode()
+    """Returns an XOR encrypted version of message.
     
-    for i in range(len(key)):
-        encrypted_message += str(message[i] ^ key[i]).encode()
+    Where key is a binary string and message is an ASCII string with a length
+    larger than or equal to the byte length of the key.
+    """
+    # Chunk 8 bits at a time from key and convert them to ints
+    # Store these in the key_bytes_list
+    key_bytes_list = []
+    for byte_index in range(0, len(key) - 1, 8):
+        key_bytes_list.append(int(key[byte_index:byte_index + 8], 2))
     
-    return encrypted_message.decode()
+    # Do the same for characters in the message
+    message_bytes_list = []
+    for char in message[:len(key_bytes_list)]:
+        message_bytes_list.append(ord(char))
+    
+    assert len(message_bytes_list) == len(key_bytes_list), 'Error in message length'    
+
+    # XOR the two lists element by element
+    encrypted_bytes_list = []
+    for i in range(len(key_bytes_list)):
+        encrypted_bytes_list.append(message_bytes_list[i] ^ key_bytes_list[i])
+    
+    # Convert to ASCII & return
+    return ''.join([chr(n) for n in encrypted_bytes_list])
 
 
 if __name__ == '__main__':
@@ -41,7 +57,7 @@ if __name__ == '__main__':
         output_file_name = DEFAULT_OUTPUT_FILE_NAME        
         
     with open(key_file_name, 'r') as key_file:
-        key = key_file.read().split('\n')[key_index]
+        key = key_file.read().split('\n')[key_index].split()[1]
         
     with open(input_file_name, 'r') as input_file:
         message = input_file.read()
@@ -49,5 +65,5 @@ if __name__ == '__main__':
     encrypted_message = encrypt_message(key, message)
 
     with open(output_file_name, 'w') as output_file:
-        output_file.write(str(encrypted_message))
+        output_file.write(encrypted_message)
     
