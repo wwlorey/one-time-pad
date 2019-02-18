@@ -13,6 +13,13 @@ OTP_BIT_LEN = 2048
 OTP_BYTE_LEN = OTP_BIT_LEN // 8
 
 
+def get_bin_str(char):
+    """Returns a length 8 binary string (w/o the leading '0b') 
+    derived from char."""
+    bit_str = bin(char)[2:]
+    return '0' * (8 - len(bit_str)) + bit_str
+
+
 if __name__ == '__main__':
     # Ensure the expected number of command line arguments is provided
     if len(sys.argv) == 2:
@@ -35,9 +42,16 @@ if __name__ == '__main__':
     # Generate & write OTP keys
     with open(output_file_name, 'w') as output_file:
         for key_count in range(NUM_OTP_KEYS):
-            key_id = format_str.format(key_count)
-            key = str(urandom(OTP_BYTE_LEN))
-            output_file.write(key_id + ' ' + key)
+            key_id = format_str.format(key_count + 1)
+            key_bytes = urandom(OTP_BYTE_LEN)
+            key_bits = ''
+            for char in key_bytes:
+                key_bits += get_bin_str(char)
+
+            assert len(key_bits) == OTP_BIT_LEN, 'Error in bytes to bits conversion'
+
+            output_file.write(key_id + ' ' + key_bits)
             
+            # Prevent a trailing new line in the file
             if key_count < NUM_OTP_KEYS - 1:
                 output_file.write('\n')
