@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
+import codecs
 import sys
 
 
@@ -15,7 +16,7 @@ DEFAULT_OUTPUT_FILE_NAME = 'output.txt'
 def encrypt_message(key, message):
     """Returns an XOR encrypted version of message.
     
-    Where key is a binary string and message is an ASCII string with a length
+    Where key is a binary string and message is an UTF-8 string with a length
     larger than or equal to the byte length of the key.
     """
     # Chunk 8 bits at a time from key and convert them to ints
@@ -29,14 +30,14 @@ def encrypt_message(key, message):
     for char in message[:len(key_bytes_list)]:
         message_bytes_list.append(ord(char))
     
-    assert len(message_bytes_list) == len(key_bytes_list), 'Error in message length'    
+    assert len(message_bytes_list) == len(key_bytes_list), 'Error in message length'
 
     # XOR the two lists element by element
     encrypted_bytes_list = []
     for i in range(len(key_bytes_list)):
         encrypted_bytes_list.append(message_bytes_list[i] ^ key_bytes_list[i])
-    
-    # Convert to ASCII & return
+        
+    # Convert to UTF-8 & return
     return ''.join([chr(n) for n in encrypted_bytes_list])
 
 
@@ -57,17 +58,17 @@ if __name__ == '__main__':
         output_file_name = DEFAULT_OUTPUT_FILE_NAME
         print('Using default values.')
         
-    key_index = key_id - 1        
+    key_index = key_id - 1
 
     with open(key_file_name, 'r') as key_file:
         key = key_file.read().split('\n')[key_index].split()[1]
         
-    with open(input_file_name, 'r') as input_file:
+    with codecs.open(input_file_name, 'r', encoding='utf8') as input_file:
         message = input_file.read()
     
     encrypted_message = encrypt_message(key, message)
-
-    with open(output_file_name, 'w') as output_file:
+    
+    with codecs.open(output_file_name, 'w', encoding='utf8') as output_file:
         output_file.write(encrypted_message)
         print('Encrypted/Decrypted message written to', output_file_name)
     
