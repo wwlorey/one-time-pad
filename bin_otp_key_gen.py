@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
+import codecs
 from os import urandom
 import sys
 
@@ -40,7 +41,7 @@ if __name__ == '__main__':
     format_str = "{:0%id}" % key_id_len
     
     # Generate & write OTP keys
-    with open(output_file_name, 'w') as output_file:
+    with codecs.open(output_file_name, 'w', encoding='utf8') as output_file:
         for key_count in range(NUM_OTP_KEYS):
             key_id = format_str.format(key_count + 1)
             key_bytes = urandom(OTP_BYTE_LEN)

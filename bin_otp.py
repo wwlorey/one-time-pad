@@ -60,7 +60,7 @@ if __name__ == '__main__':
         
     key_index = key_id - 1
 
-    with open(key_file_name, 'r') as key_file:
+    with codecs.open(key_file_name, 'r', encoding='utf8') as key_file:
         key = key_file.read().split('\n')[key_index].split()[1]
         
     with codecs.open(input_file_name, 'r', encoding='utf8') as input_file:
