@@ -30,7 +30,7 @@ def encrypt_message(key, message):
     for char in message[:len(key_bytes_list)]:
         message_bytes_list.append(ord(char))
     
-    assert len(message_bytes_list) == len(key_bytes_list), 'Error in message length'
+    # assert len(message_bytes_list) == len(key_bytes_list), 'Error in message length'
 
     # XOR the two lists element by element
     encrypted_bytes_list = []

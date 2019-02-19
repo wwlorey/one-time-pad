@@ -49,7 +49,7 @@ if __name__ == '__main__':
             for char in key_bytes:
                 key_bits += get_bin_str(char)
 
-            assert len(key_bits) == OTP_BIT_LEN, 'Error in bytes to bits conversion'
+            # assert len(key_bits) == OTP_BIT_LEN, 'Error in bytes to bits conversion'
 
             output_file.write(key_id + ' ' + key_bits)
             
