@@ -1,3 +1,7 @@
+#### CS 3600 Security | Binary one-time pad implementation
+
+#### Assignment prompt:
+
 # Programming assignment 2 (pa02) -- Binary One Time Pad
 
 Binary XOR operations are all over modern crypto, and this is a fun version of "perfect" crypto using this method.
